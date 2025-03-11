@@ -26,7 +26,7 @@ return {
             ) or require("lspconfig.util").find_git_ancestor(fname)
           end,
           capabilities = {
-            offsetEncoding = { "utf-8" },
+            offsetEncoding = { "utf-16" },
           },
           cmd = {
             "clangd",
@@ -47,6 +47,7 @@ return {
             -- "--query-driver=/usr/bin/**/clang-*,/bin/clang,/usr/bin/clang", -- Add appropriate paths for your system
             -- "--log=error", -- Reduce logging overhead
             -- "--enable-config", -- Enable .clangd config files
+            "--offset-encoding=utf-16",
           },
           init_options = {
             usePlaceholders = true,
