@@ -16,6 +16,6 @@ git clone https://github.com/VimHater/NEOVIM.git "$env:USERPROFILE\AppData\Local
 rm -rf ~/.config/nvim
 rm -rf ~/.local/state/nvim
 rm -rf ~/.local/share/nvim
-git clone https://github.com/VimHater/NEOVIM.git
+git clone https://github.com/VimHater/NEOVIM.git ~/.config/nvim
 
 ```
