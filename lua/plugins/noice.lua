@@ -30,6 +30,6 @@ return {
         cmdline = {
             enabled = true,
             view = "cmdline",
-        }
+        },
     },
 }

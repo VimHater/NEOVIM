@@ -7,7 +7,7 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 vim.cmd("Copilot disable")
-vim.keymap.set({"n", "v" }, "<leader>cb", function()
+vim.keymap.set({ "n", "v" }, "<leader>cb", function()
     if vim.opt.clipboard:get()[1] == "unnamedplus" then
         vim.opt.clipboard = "unnamed"
         print("Clipboard: unnamed (Primary Selection)")
@@ -16,4 +16,3 @@ vim.keymap.set({"n", "v" }, "<leader>cb", function()
         print("Clipboard: unnamedplus (System Clipboard)")
     end
 end, { desc = "Toggle clipboard between unnamed and unnamedplus" })
-

@@ -1,12 +1,10 @@
-return
-{
-  "folke/snacks.nvim",
-  opts = {
-    dashboard = {
-      preset = {
-        pick = function(cmd, opts)
-        end,
-        header = [[
+return {
+    "folke/snacks.nvim",
+    opts = {
+        dashboard = {
+            preset = {
+                pick = function(cmd, opts) end,
+                header = [[
    ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗
    ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║
    ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║
@@ -26,7 +24,7 @@ return
           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
-      },
+            },
+        },
     },
-  },
 }
