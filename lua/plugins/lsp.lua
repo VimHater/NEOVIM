@@ -41,7 +41,7 @@ return {
             "--malloc-trim",
             "--limit-results=30", -- Limit completion items for speed
             "--limit-references=20",
-            "--inlay-hints=false", -- Disable inlay hints for better performance
+            "--inlay-hints=true", -- Disable inlay hints for better performance
             -- "--header-insertion-decorators=false",
             "--ranking-model=decision_forest", -- Better ranking algorithm
             -- "--query-driver=/usr/bin/**/clang-*,/bin/clang,/usr/bin/clang", -- Add appropriate paths for your system
@@ -54,6 +54,16 @@ return {
             completeUnimported = true,
             clangdFileStatus = true,
           },
+          on_attach = function(client, bufnr)
+            -- Configure short documentation in hover
+            vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+              config = config or {}
+              config.border = "single"
+              config.max_width = 60 -- Restrict hover width
+              config.max_height = 30 -- Restrict hover height
+              return vim.lsp.handlers.hover(_, result, ctx, config)
+            end
+          end,
         },
       },
       -- example calling setup directly for each LSP

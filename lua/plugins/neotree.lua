@@ -1,6 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  lazy = true,
+  lazy = false,
   opts = function(_, opts)
     opts.window = {
       mappings = {

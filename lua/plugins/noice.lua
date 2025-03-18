@@ -27,5 +27,9 @@ return {
             command_palette = false,
             long_message_to_split = true,
         },
+        cmdline = {
+            enabled = true,
+            view = "cmdline",
+        }
     },
 }

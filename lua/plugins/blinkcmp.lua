@@ -30,7 +30,7 @@ return {
       },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 2000,
+        auto_show_delay_ms = 4000,
       },
       menu = {
         draw = {},
@@ -40,17 +40,17 @@ return {
     keymap = {
       preset = "default",
       ["<Tab>"] = { "select_next", "fallback" },
-      ["<C-n>"] = { "snippet_forward", "fallback_to_mappings" },
-      ["<C-p>"] = { "snippet_backward", "fallback_to_mappings" },
       ["<S-Tab>"] = { "select_prev", "fallback" },
-      ["<CR>"] = { "select_and_accept", "fallback" },
+      ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
+      ["<C-p>"] = { "snippet_backward", "fallback_to_mappings" },
+      ["<C-n>"] = { "snippet_forward", "fallback_to_mappings"},
     },
 
     appearance = {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp
       -- Will be removed in a future release
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
       -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'normal',
