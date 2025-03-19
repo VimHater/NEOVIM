@@ -32,16 +32,16 @@ return {
                     cmd = {
                         "clangd",
                         "--background-index",
-                        --"--clang-tidy",
+                        "--clang-tidy",
                         "--header-insertion=iwyu",
                         --"--completion-style=bundled",
                         -- "--function-arg-placeholders",
                         -- "--fallback-style=google",
                         "--pch-storage=memory",
-                        --"--j=8", -- Reduced from 8 to prevent memory pressure
+                        "--j=8", -- Reduced from 8 to prevent memory pressure
                         "--malloc-trim",
-                        "--limit-results=30", -- Limit completion items for speed
-                        "--limit-references=20",
+                        --"--limit-results=30", -- Limit completion items for speed
+                        --"--limit-references=20",
                         "--inlay-hints=true", -- Disable inlay hints for better performance
                         -- "--header-insertion-decorators=false",
                         "--ranking-model=decision_forest", -- Better ranking algorithm
@@ -55,16 +55,6 @@ return {
                         completeUnimported = true,
                         clangdFileStatus = true,
                     },
-                    on_attach = function(client, bufnr)
-                        -- Configure short documentation in hover
-                        vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-                            config = config or {}
-                            config.border = "single"
-                            config.max_width = 60 -- Restrict hover width
-                            config.max_height = 30 -- Restrict hover height
-                            return vim.lsp.handlers.hover(_, result, ctx, config)
-                        end
-                    end,
                 },
             },
             -- example calling setup directly for each LSP
