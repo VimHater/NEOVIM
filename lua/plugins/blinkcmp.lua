@@ -13,6 +13,11 @@ return {
     ---@module 'blink.cmp'
 
     opts = {
+        snippets = {
+            expand = function(snippet, _)
+                return LazyVim.cmp.expand(snippet)
+            end,
+        },
         -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
         -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
         -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
@@ -22,6 +27,12 @@ return {
         -- C-k: Toggle signature help
         -- See the full "keymap" documentation for information on defining your own keymap.
         completion = {
+            accept = {
+                -- experimental auto-brackets support
+                auto_brackets = {
+                    enabled = true,
+                },
+            },
             ghost_text = { enabled = false },
             list = {
                 selection = {
@@ -33,7 +44,9 @@ return {
                 auto_show_delay_ms = 4000,
             },
             menu = {
-                draw = {},
+                draw = {
+                    treesitter = { "lsp" },
+                },
             },
         },
 
@@ -50,17 +63,17 @@ return {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups
             -- Useful for when your theme doesn't support blink.cmp
             -- Will be removed in a future release
-            use_nvim_cmp_as_default = false,
+            use_nvim_cmp_as_default = true,
             -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
             -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = "normal",
+            nerd_font_variant = "Nerd Font Mono",
         },
 
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
             --default = { 'lsp', 'path', 'snippets', 'buffer' },
-            default = { "lsp" },
+            default = { "lsp", "snippets", "path" , "buffer"},
         },
 
         -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
@@ -68,7 +81,7 @@ return {
         -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
         --
         -- See the fuzzy documentation for more information
-        fuzzy = { implementation = "rust" },
+       fuzzy = { implementation = "rust" },
     },
     opts_extend = { "sources.default" },
 }

@@ -24,7 +24,13 @@
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
 vim.opt.expandtab = true
 --vim.g.snacks_animate = false
 vim.g.autoformat = false
 --vim.wo.signcolumn = "yes"
+vim.wo.relativenumber = true
+vim.opt.sidescrolloff = 12
+vim.opt.wrap = true
+vim.opt.termguicolors = false
+-- enabled with `:LazyExtras`
