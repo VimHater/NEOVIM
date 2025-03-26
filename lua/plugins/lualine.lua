@@ -1,5 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
+    enabled=true,
     event = "VeryLazy",
     init = function()
         vim.g.lualine_laststatus = vim.o.laststatus
@@ -112,8 +113,7 @@ return {
         -- And allow it to be overriden for some buffer types (see autocmds)
         -- if vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
         --   local trouble = require("trouble")
-        --   local symbols = trouble.statusline({
-        --     mode = "symbols",
+        --   local symbols = trouble.statusline({ mode = "symbols",
         --     groups = {},
         --     title = false,
         --     filter = { range = true },
