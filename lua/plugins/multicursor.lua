@@ -7,9 +7,9 @@ return {
     {"<C-S-k>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "x"}, desc = "Add cursor and move up"},
 
 
-    {"<Leader>mm", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}, desc = "Add or remove cursor"},
+    {"<Leader>mc", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "x", "v"}, desc = "Add or remove cursor"},
 
-    {"<Leader>mv", "<Cmd>MultipleCursorsAddVisualArea<CR>", mode = {"x"}, desc = "Add cursors to the lines of the visual area"},
+    {"<Leader>mv", "<Cmd>MultipleCursorsAddVisualArea<CR>", mode = {"x", "v", "n"}, desc = "Add cursors to the lines of the visual area"},
 
     {"<Leader>ma", "<Cmd>MultipleCursorsAddMatches<CR>", mode = {"n", "x"}, desc = "Add cursors to cword"},
     {"<Leader>mA", "<Cmd>MultipleCursorsAddMatchesV<CR>", mode = {"n", "x"}, desc = "Add cursors to cword in previous area"},

@@ -1,8 +1,8 @@
 return {
-    {
-        "williamboman/mason-lspconfig.nvim",
-        ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "neomake", "python-lsp-server" },
-    },
+    -- {
+    --     "williamboman/mason-lspconfig.nvim",
+    --     ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "neomake", "python-lsp-server" },
+    -- },
     {
         "neovim/nvim-lspconfig",
         opts = {
@@ -64,7 +64,13 @@ return {
 
                 lspconfig["lua_ls"].setup({ capabilities = capabilities })
                 lspconfig["clangd"].setup({ capabilities = capabilities })
-                --lspconfig["rust_analyzer"].setup({ capabilities = capabilities })
+                lspconfig["bacon_ls"].setup({ capabilities = capabilities })
+                lspconfig["bacon"].setup({ capabilities = capabilities })
+                lspconfig["rust_analyzer"].setup({
+                    capabilities = capabilities,
+                    diagnostics = { enable = false },
+                    checkOnSave = { enable = false },
+                })
             end,
         },
     },

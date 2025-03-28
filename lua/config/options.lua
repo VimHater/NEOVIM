@@ -39,7 +39,8 @@ vim.opt.wrap = false
 --   pattern = "*",
 --   command = "normal! zz",
 -- })
-
+--- provided by rust-analyzer.
+vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 if vim.g.neovide then
     -- Set font
     vim.o.guifont = "JetbrainsMono Nerd Font:s16"
