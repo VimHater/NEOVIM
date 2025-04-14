@@ -41,6 +41,16 @@ vim.opt.wrap = false
 -- })
 --- provided by rust-analyzer.
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+vim.g.mkdp_refresh_slow = 0
+vim.g.mkdp_markdown_css = ""
+vim.g.mkdp_preview_options = {
+    mkit = {
+        katex = {
+            enabled = true,
+        },
+    },
+}
+
 if vim.g.neovide then
     -- Set font
     vim.o.guifont = "JetbrainsMono Nerd Font:h15"
@@ -60,6 +70,6 @@ if vim.g.neovide then
     vim.g.neovide_floating_shadow = false
     vim.g.neovide_scroll_animation_length = 0.3
     vim.opt.linespace = 1
-    vim.keymap.set({"n", "v", "i"}, "<C-S-c>", '"+y', { noremap = true, silent = true })
-    vim.keymap.set({"n", "v", "i"}, "<C-S-v>", '"+p', { noremap = true, silent = true })
+    vim.keymap.set({ "n", "v" }, "<C-S-c>", '"+y', { noremap = true, silent = true })
+    vim.keymap.set({ "n", "v" }, "<C-S-v>", '"+p', { noremap = true, silent = true })
 end

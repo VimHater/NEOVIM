@@ -52,11 +52,14 @@ return {
 
         keymap = {
             preset = "default",
-            ["<Tab>"] = { "select_next", "fallback" },
-            ["<S-Tab>"] = { "select_prev", "fallback" },
+            ["<S-j>"] = { "select_next", "fallback" },
+            ["<S-k>"] = { "select_prev", "fallback" },
             ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
-            ["<C-p>"] = { "snippet_backward", "fallback_to_mappings" },
+            ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
+            ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
             ["<C-n>"] = { "snippet_forward", "fallback_to_mappings" },
+            ["<C-h>"] = { "hide", "fallback"},
+            ["<C-d>"] = { "show_documentation", "fallback"},
         },
 
         appearance = {
@@ -73,7 +76,7 @@ return {
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
             --default = { 'lsp', 'path', 'snippets', 'buffer' },
-            default = { "lsp", "snippets", "path" , "buffer"},
+            default = { "lsp", "snippets", "path", "buffer" },
         },
 
         -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
@@ -81,7 +84,7 @@ return {
         -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
         --
         -- See the fuzzy documentation for more information
-       fuzzy = { implementation = "rust" },
+        fuzzy = { implementation = "rust" },
     },
     opts_extend = { "sources.default" },
 }
