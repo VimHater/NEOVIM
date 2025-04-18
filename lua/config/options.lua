@@ -53,9 +53,7 @@ vim.g.mkdp_preview_options = {
 
 if vim.g.neovide then
     -- Set font
-    vim.o.guifont = "JetbrainsMono Nerd Font:h15"
-
-    vim.g.neovide_transparency = 1
+    vim.o.guifont = "JetbrainsMono Nerd Font:h16"
 
     vim.g.neovide_cursor_trail_size = 0
     vim.g.neovide_cursor_animation_length = 0
@@ -66,7 +64,7 @@ if vim.g.neovide then
     vim.g.neovide_padding_bottom = 0
     vim.g.neovide_padding_right = 0
     vim.g.neovide_padding_left = 2
-    vim.g.neovide_opacity = 0.5
+    vim.g.neovide_opacity = 1
     vim.g.neovide_floating_shadow = false
     vim.g.neovide_scroll_animation_length = 0.3
     vim.opt.linespace = 1
