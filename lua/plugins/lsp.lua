@@ -4,7 +4,8 @@ return {
     --     ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "neomake", "python-lsp-server" },
     -- },
     {
-        "neovim/nvim-lspconfig",
+        "mason-org/mason-lspconfig.nvim",
+        version = "^1.*",
         opts = {
             servers = {
                 -- Ensure mason installs the server

@@ -50,7 +50,6 @@ vim.g.mkdp_preview_options = {
         },
     },
 }
-
 if vim.g.neovide then
     -- Set font
     vim.o.guifont = "JetbrainsMono Nerd Font:h16"

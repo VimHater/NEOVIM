@@ -1,6 +1,7 @@
 return {
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
+        version = "^1.*",
         lazy = false,
         opts = {
             ensure_installed = {
