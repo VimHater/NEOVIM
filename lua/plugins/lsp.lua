@@ -29,27 +29,27 @@ return {
                     capabilities = {
                         offsetEncoding = { "utf-16" },
                     },
-                    cmd = {
-                        "clangd",
-                        "--background-index",
-                        "--clang-tidy",
-                        "--header-insertion=iwyu",
-                        --"--completion-style=bundled",
-                        -- "--function-arg-placeholders",
-                        -- "--fallback-style=google",
-                        "--pch-storage=memory",
-                        "--j=8", -- Reduced from 8 to prevent memory pressure
-                        "--malloc-trim",
-                        --"--limit-results=30", -- Limit completion items for speed
-                        --"--limit-references=20",
-                        "--inlay-hints=true", -- Disable inlay hints for better performance
-                        -- "--header-insertion-decorators=false",
-                        "--ranking-model=decision_forest", -- Better ranking algorithm
-                        -- "--query-driver=/usr/bin/**/clang-*,/bin/clang,/usr/bin/clang", -- Add appropriate paths for your system
-                        -- "--log=error", -- Reduce logging overhead
-                        -- "--enable-config", -- Enable .clangd config files
-                        "--offset-encoding=utf-16",
-                    },
+                    -- cmd = {
+                    --     "clangd",
+                    --     "--background-index",
+                    --     "--clang-tidy",
+                    --     "--header-insertion=iwyu",
+                    --     --"--completion-style=bundled",
+                    --     -- "--function-arg-placeholders",
+                    --     -- "--fallback-style=google",
+                    --     "--pch-storage=memory",
+                    --     "--j=8", -- Reduced from 8 to prevent memory pressure
+                    --     "--malloc-trim",
+                    --     --"--limit-results=30", -- Limit completion items for speed
+                    --     --"--limit-references=20",
+                    --     "--inlay-hints=true", -- Disable inlay hints for better performance
+                    --     -- "--header-insertion-decorators=false",
+                    --     "--ranking-model=decision_forest", -- Better ranking algorithm
+                    --     -- "--query-driver=/usr/bin/**/clang-*,/bin/clang,/usr/bin/clang", -- Add appropriate paths for your system
+                    --     -- "--log=error", -- Reduce logging overhead
+                    --     -- "--enable-config", -- Enable .clangd config files
+                    --     "--offset-encoding=utf-16",
+                    -- },
                     init_options = {
                         usePlaceholders = true,
                         completeUnimported = true,
