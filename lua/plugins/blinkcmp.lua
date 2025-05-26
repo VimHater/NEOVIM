@@ -52,8 +52,8 @@ return {
 
         keymap = {
             preset = "default",
-            ["<S-j>"] = { "select_next", "fallback" },
-            ["<S-k>"] = { "select_prev", "fallback" },
+            ["<C-S-j>"] = { "select_next", "fallback" },
+            ["<C-S-k>"] = { "select_prev", "fallback" },
             ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
@@ -66,7 +66,7 @@ return {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups
             -- Useful for when your theme doesn't support blink.cmp
             -- Will be removed in a future release
-            use_nvim_cmp_as_default = true,
+            use_nvim_cmp_as_default = false,
             -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
             -- Adjusts spacing to ensure icons are aligned
             nerd_font_variant = "Nerd Font Mono",
