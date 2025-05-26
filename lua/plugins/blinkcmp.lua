@@ -33,7 +33,7 @@ return {
                     enabled = true,
                 },
             },
-            ghost_text = { enabled = false },
+            ghost_text = { enabled = true },
             list = {
                 selection = {
                     auto_insert = false,
@@ -41,7 +41,7 @@ return {
             },
             documentation = {
                 auto_show = true,
-                auto_show_delay_ms = 4000,
+                auto_show_delay_ms = 1000,
             },
             menu = {
                 draw = {
@@ -52,8 +52,8 @@ return {
 
         keymap = {
             preset = "default",
-            ["<C-S-j>"] = { "select_next", "fallback" },
-            ["<C-S-k>"] = { "select_prev", "fallback" },
+            ["<C-j>"] = { "select_next", "fallback" },
+            ["<C-k>"] = { "select_prev", "fallback" },
             ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
@@ -61,7 +61,6 @@ return {
             ["<C-h>"] = { "hide", "fallback"},
             ["<C-d>"] = { "show_documentation", "fallback"},
         },
-
         appearance = {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups
             -- Useful for when your theme doesn't support blink.cmp
