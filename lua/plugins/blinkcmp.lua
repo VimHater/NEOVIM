@@ -52,8 +52,8 @@ return {
 
         keymap = {
             preset = "default",
-            ["<C-j>"] = { "select_next", "fallback" },
-            ["<C-k>"] = { "select_prev", "fallback" },
+            ["<M-j>"] = { "select_next", "fallback" },
+            ["<M-k>"] = { "select_prev", "fallback" },
             ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
