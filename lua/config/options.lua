@@ -33,6 +33,7 @@ vim.g.autoformat = false
 --vim.wo.relativenumber = true
 vim.opt.sidescrolloff = 12
 vim.opt.wrap = false
+vim.o.updatetime = 500
 --vim.opt.termguicolors = false
 -- enabled with `:LazyExtras`
 --vim.o.scrolloff = 999
@@ -40,8 +41,6 @@ vim.opt.wrap = false
 --   pattern = "*",
 --   command = "normal! zz",
 -- })
---- provided by rust-analyzer.
-vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
 vim.g.mkdp_refresh_slow = 0
 vim.g.mkdp_markdown_css = ""
 vim.g.mkdp_preview_options = {
@@ -51,9 +50,13 @@ vim.g.mkdp_preview_options = {
         },
     },
 }
+
+vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set({'t'}, '<C-x>', [[<C-\><C-n>:q<CR>]], { noremap = true })
+
 if vim.g.neovide then
     -- Set font
-    vim.o.guifont = "JetbrainsMono Nerd Font:h16"
+    vim.o.guifont = "JetbrainsMono Nerd Font:h15"
 
     vim.g.neovide_cursor_trail_size = 0
     vim.g.neovide_cursor_animation_length = 0

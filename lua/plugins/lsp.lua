@@ -57,22 +57,28 @@ return {
                         clangdFileStatus = true,
                     },
                 },
+
             },
             -- example calling setup directly for each LSP
-            config = function()
-                local capabilities = require("blink.cmp").get_lsp_capabilities()
-                local lspconfig = require("lspconfig")
-
-                lspconfig["lua_ls"].setup({ capabilities = capabilities })
-                lspconfig["clangd"].setup({ capabilities = capabilities })
-                lspconfig["bacon_ls"].setup({ capabilities = capabilities })
-                lspconfig["bacon"].setup({ capabilities = capabilities })
-                lspconfig["rust_analyzer"].setup({
-                    capabilities = capabilities,
-                    diagnostics = { enable = false },
-                    checkOnSave = { enable = false },
-                })
-            end,
+            -- config = function()
+            --     local capabilities = require("blink.cmp").get_lsp_capabilities()
+            --     local lspconfig = require("lspconfig")
+            --
+            --     lspconfig["lua_ls"].setup({ capabilities = capabilities })
+            --     lspconfig["clangd"].setup({
+            --         capabilities = capabilities,
+            --     })
+            --     lspconfig["bacon_ls"].setup({
+            --         enabled = diagnostics == "bacon-ls",
+            --         capabilities = capabilities,
+            --     })
+            --     lspconfig["bacon"].setup({ capabilities = capabilities })
+            --     lspconfig["rust_analyzer"].setup({
+            --         capabilities = capabilities,
+            --         diagnostics = { enable = false },
+            --         checkOnSave = { enable = false },
+            --     })
+            -- end,
         },
     },
 }

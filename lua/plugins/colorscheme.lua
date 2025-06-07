@@ -20,6 +20,7 @@ return {
         lazy = false,
         opts = { style = "night" },
     },
+
     {
         "LazyVim/LazyVim",
         lazy = false,
@@ -27,6 +28,4 @@ return {
             colorscheme = "onedark",
         },
     },
-
-    -- somewhere in your config:
 }
