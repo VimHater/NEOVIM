@@ -52,7 +52,7 @@ vim.g.mkdp_preview_options = {
 }
 
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set({'t'}, '<C-x>', [[<C-\><C-n>:q<CR>]], { noremap = true })
+vim.keymap.set({'t'}, '<C-x>', [[<C-\><C-n>:q!<CR>]], { noremap = true })
 
 if vim.g.neovide then
     -- Set font
