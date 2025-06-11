@@ -52,11 +52,12 @@ vim.g.mkdp_preview_options = {
 }
 
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set({'t'}, '<C-x>', [[<C-\><C-n>:q!<CR>]], { noremap = true })
+vim.keymap.set({'n'}, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
+vim.keymap.set({'t'}, '<C-S-x>', [[<C-\><C-n>:q!<CR>]], { noremap = true })
 
 if vim.g.neovide then
     -- Set font
-    vim.o.guifont = "JetbrainsMono Nerd Font:h15"
+    vim.o.guifont = "JetbrainsMono Nerd Font:h14"
 
     vim.g.neovide_cursor_trail_size = 0
     vim.g.neovide_cursor_animation_length = 0
