@@ -13,11 +13,11 @@ return {
     },
     {
         "ellisonleao/gruvbox.nvim",
-        lazy = false,
+        lazy = true,
     },
     {
         "folke/tokyonight.nvim",
-        lazy = false,
+        lazy = true,
         opts = { style = "night" },
     },
 

@@ -27,13 +27,14 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.g.copilot_enabled = false
--- vim.g.snacks_animate = false
+vim.g.snacks_animate = false
 vim.g.autoformat = false
 --vim.wo.signcolumn = "yes"
 --vim.wo.relativenumber = true
 vim.opt.sidescrolloff = 12
 vim.opt.wrap = false
 vim.o.updatetime = 500
+vim.o.cmdheight=0
 --vim.opt.termguicolors = false
 -- enabled with `:LazyExtras`
 --vim.o.scrolloff = 999
@@ -53,7 +54,9 @@ vim.g.mkdp_preview_options = {
 
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set({'n'}, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
-vim.keymap.set({'t'}, '<C-S-x>', [[<C-\><C-n>:q!<CR>]], { noremap = true })
+vim.keymap.set({'t'}, '<C-S-x>', [[<C-\><C-n>:q<CR>]], { noremap = true })
+
+
 
 if vim.g.neovide then
     -- Set font
@@ -64,10 +67,10 @@ if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 0
     vim.g.neovide_floating_blur_amount_y = 0
     --vim.g.neovide_cursor_vfx_mode = "railgun"
-    vim.g.neovide_padding_top = 2
+    vim.g.neovide_padding_top = 0
     vim.g.neovide_padding_bottom = 0
     vim.g.neovide_padding_right = 0
-    vim.g.neovide_padding_left = 2
+    vim.g.neovide_padding_left = 0
     vim.g.neovide_opacity = 1
     vim.g.neovide_floating_shadow = false
     vim.g.neovide_scroll_animation_length = 0.3
