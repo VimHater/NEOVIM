@@ -1,5 +1,4 @@
 return {
-
     {
         "okuuva/auto-save.nvim",
         enabled = vim.env.NOAUTOSAVE ~= "1",
