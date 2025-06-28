@@ -45,6 +45,17 @@ return {
             end,
             desc = "Buffers",
         },
+        {
+            "<Tab><Tab>",
+            function()
+                Snacks.picker.buffers({
+                    on_show = function()
+                        vim.cmd.stopinsert()
+                    end,
+                })
+            end,
+            desc = "Buffers",
+        },
         { "<leader>e", false },
         {
             "<leader>fe",

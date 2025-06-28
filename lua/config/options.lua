@@ -35,7 +35,7 @@ vim.opt.sidescrolloff = 12
 vim.opt.wrap = false
 vim.o.updatetime = 500
 vim.o.cmdheight=0
---vim.opt.termguicolors = false
+vim.opt.termguicolors = true
 -- enabled with `:LazyExtras`
 --vim.o.scrolloff = 999
 -- vim.api.nvim_create_autocmd("CursorMoved", {
@@ -52,11 +52,9 @@ vim.g.mkdp_preview_options = {
     },
 }
 
-vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set({'t'}, '<M-Esc>', [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set({'n'}, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
 vim.keymap.set({'t'}, '<C-S-x>', [[<C-\><C-n>:q<CR>]], { noremap = true })
-
-
 
 if vim.g.neovide then
     -- Set font

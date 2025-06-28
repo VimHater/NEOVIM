@@ -2,6 +2,7 @@ return {
     {
         "akinsho/toggleterm.nvim",
         enabled = true,
+        lazy = false,
         version = "*",
         opts = {--[[ things you want to change go here]]
             autochdir = true,
