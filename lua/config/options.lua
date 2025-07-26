@@ -34,7 +34,7 @@ vim.g.autoformat = false
 vim.opt.sidescrolloff = 12
 vim.opt.wrap = false
 vim.o.updatetime = 500
-vim.o.cmdheight=0
+vim.o.cmdheight = 0
 vim.opt.termguicolors = true
 -- enabled with `:LazyExtras`
 --vim.o.scrolloff = 999
@@ -52,9 +52,22 @@ vim.g.mkdp_preview_options = {
     },
 }
 
-vim.keymap.set({'t'}, '<M-Esc>', [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set({'n'}, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
-vim.keymap.set({'t'}, '<C-S-x>', [[<C-\><C-n>:q<CR>]], { noremap = true })
+vim.keymap.set({ "t" }, "<M-Esc>", [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set({ "n" }, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
+vim.keymap.set({ "t" }, "<C-S-x>", [[<C-\><C-n>:q<CR>]], { noremap = true })
+
+vim.g.sonokai_transparent_background = 2
+-- function _G.toggle_sonokai_transparency()
+--     _G.sonokai_transparent_enabled = not _G.sonokai_transparent_enabled
+--
+--     vim.g.sonokai_transparent_background = _G.sonokai_transparent_enabled and 1 or 0
+--
+--     vim.cmd("colorscheme sonokai")
+--
+--     print("Sonokai transparency " .. (_G.sonokai_transparent_enabled and "enabled" or "disabled"))
+-- end
+
+-- vim.api.nvim_create_user_command("ToggleSonokaiTransparent", toggle_sonokai_transparency, {})
 
 if vim.g.neovide then
     -- Set font
