@@ -15,9 +15,6 @@ vim.keymap.set({ "n", "v" }, "<leader>cb", function()
         print("Clipboard: unnamedplus (System Clipboard)")
     end
 end, { desc = "Toggle clipboard between unnamed and unnamedplus" })
-
-vim.cmd("Copilot disable")
-
 -- local group = vim.api.nvim_create_augroup('autosave', {})
 --
 -- vim.api.nvim_create_autocmd('User', {
