@@ -55,8 +55,8 @@ vim.g.mkdp_preview_options = {
 vim.keymap.set({ "t" }, "<M-Esc>", [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set({ "n" }, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
 vim.keymap.set({ "t" }, "<C-S-x>", [[<C-\><C-n>:q<CR>]], { noremap = true })
-
-vim.g.sonokai_transparent_background = 2
+vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
+vim.g.sonokai_transparent_background = 1
 -- function _G.toggle_sonokai_transparency()
 --     _G.sonokai_transparent_enabled = not _G.sonokai_transparent_enabled
 --

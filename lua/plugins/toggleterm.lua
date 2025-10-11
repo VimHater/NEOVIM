@@ -8,7 +8,8 @@ return {
             autochdir = true,
             start_in_insert = false,
             close_on_exit = true, -- close the terminal window when the process exits
-            direction = "tab",
+            --direction = "horizontal",
+            direction = "float",
             auto_scroll = true, -- automatically scroll to the bottom on terminal output
             float_opts = {
                 -- The border key is *almost* the same as 'nvim_open_win'
