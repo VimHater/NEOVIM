@@ -99,6 +99,7 @@ return {
         lazy = false,
         opts = {
             colorscheme = "sonokai",
+            -- colorscheme = "github-theme"
         },
     },
     -- Lazy

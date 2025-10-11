@@ -1,6 +1,8 @@
 return {
     "folke/snacks.nvim",
     opts = {
+        explorer = { enable = false },
+        picker = { enable = false },
         picker = {
             win = {
                 input = {
@@ -63,9 +65,9 @@ return {
                 -- This is a manual toggle: try reveal, fallback to open
                 local explorer = require("snacks.explorer")
                 local ok = pcall(explorer.reveal)
-                if not ok then
-                    explorer.open()
-                end
+                --if not ok then
+                --    explorer.open()
+                --end
             end,
             desc = "Toggle Snack Explorer",
         },
