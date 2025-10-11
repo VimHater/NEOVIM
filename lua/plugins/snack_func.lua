@@ -2,14 +2,14 @@ return {
     "folke/snacks.nvim",
     opts = {
         explorer = { enable = false },
-        picker = { enable = false },
         picker = {
+            enable = false,
             win = {
                 input = {
                     keys = {
                         ["<a-c>"] = {
                             "toggle_cwd",
-                            mode = { "n", "i" },
+                            mode = {},
                         },
                     },
                 },
@@ -26,6 +26,7 @@ return {
             },
             sources = {
                 explorer = {
+                    enable = false,
                     layout = {
                         layout = {
                             position = "right",

@@ -5,7 +5,7 @@ return {
     -- },
     {
         "mason-org/mason-lspconfig.nvim",
-        version = "^1.*",
+        --version = "^1.*",
         opts = {
             servers = {
                 -- Ensure mason installs the server
