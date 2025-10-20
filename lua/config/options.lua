@@ -36,6 +36,7 @@ vim.opt.wrap = false
 vim.o.updatetime = 500
 vim.o.cmdheight = 0
 vim.opt.termguicolors = true
+vim.cmd("set nospell")
 -- enabled with `:LazyExtras`
 --vim.o.scrolloff = 999
 -- vim.api.nvim_create_autocmd("CursorMoved", {
