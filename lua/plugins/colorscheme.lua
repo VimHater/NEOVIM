@@ -43,7 +43,7 @@ return {
     {
         "projekt0n/github-nvim-theme",
         name = "github-theme",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        lazy = false,
         config = function()
             require("github-theme").setup({
                 -- ...
@@ -98,7 +98,7 @@ return {
         "LazyVim/LazyVim",
         lazy = false,
         opts = {
-            colorscheme = "sonokai",
+            colorscheme = "github_dark_colorblind",
             -- colorscheme = "github-theme"
         },
     },

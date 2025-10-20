@@ -1,7 +1,7 @@
 return {
     {
         "akinsho/toggleterm.nvim",
-        enabled = true,
+        enabled = false,
         lazy = false,
         version = "*",
         opts = {--[[ things you want to change go here]]

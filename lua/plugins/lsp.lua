@@ -33,8 +33,8 @@ return {
                     cmd = {
                         "clangd",
                         "--background-index",
-                        --"--clang-tidy",
-                        "--std=c++26",
+                        "--clang-tidy",
+                        --     "--std=c++26",
                         --     "--header-insertion=iwyu",
                         --     --"--completion-style=bundled",
                         --     -- "--function-arg-placeholders",
