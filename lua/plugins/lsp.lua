@@ -1,15 +1,13 @@
 return {
-    -- {
-    --     "williamboman/mason-lspconfig.nvim",
-    --     ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "neomake", "python-lsp-server" },
-    -- },
     {
         "mason-org/mason-lspconfig.nvim",
         --version = "^2.0.0",
         opts = {
             servers = {
                 -- Ensure mason installs the server
+                autostart = false,
                 clangd = {
+                    enable = false,
                     keys = {
                         { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
                     },
@@ -30,6 +28,7 @@ return {
                     capabilities = {
                         offsetEncoding = { "utf-16" },
                     },
+
                     cmd = {
                         "clangd",
                         "--background-index",
@@ -83,5 +82,4 @@ return {
             -- end,
         },
     },
-    { "mason-org/mason-lspconfig.nvim", config = function() end },
 }

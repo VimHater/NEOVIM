@@ -15,6 +15,55 @@ vim.keymap.set({ "n", "v" }, "<leader>cb", function()
         print("Clipboard: unnamedplus (System Clipboard)")
     end
 end, { desc = "Toggle clipboard between unnamed and unnamedplus" })
+
+local lazy_lsp_config_group = vim.api.nvim_create_augroup("LazyDiagnosticConfigOnce", { clear = true })
+
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = lazy_lsp_config_group,
+--     -- Pattern '*' means this fires for any buffer that an LSP attaches to
+--     pattern = "*",
+--     callback = function()
+--         -- Apply the global diagnostic configuration
+--         vim.diagnostic.config({
+--             virtual_text = false,
+--             signs = false,
+--             underline = false,
+--         })
+--
+--         -- IMPORTANT: Delete the autocommand immediately after running it
+--         -- so it only configures diagnostics once, not every time a new server attaches.
+--         vim.api.nvim_del_augroup_by_id(lazy_lsp_config_group)
+--     end,
+-- })
+
+-- Define a variable to track the current state of the diagnostics
+local diagnostics_hidden = true -- Assume they start hidden based on your earlier setup
+
+vim.api.nvim_create_user_command("ToggleDiagnostics", function()
+    if diagnostics_hidden then
+        -- 1. TURN ON: Re-enable default diagnostic displays
+        vim.diagnostic.config({
+            virtual_text = true, -- Default
+            signs = true, -- Default
+            underline = true, -- Default
+        })
+        diagnostics_hidden = false
+        print("Diagnostics Toggled ON: Virtual Text, Signs, and Underlines are visible.")
+    else
+        -- 2. TURN OFF: Apply your desired hidden state
+        vim.diagnostic.config({
+            virtual_text = false,
+            signs = false,
+            underline = false,
+        })
+        diagnostics_hidden = true
+        print("Diagnostics Toggled OFF: Virtual Text, Signs, and Underlines are hidden.")
+    end
+end, {
+    desc = "Toggle all LSP diagnostic visual indicators (virtual text, signs, underline) On/Off.",
+    nargs = 0,
+})
+
 -- local group = vim.api.nvim_create_augroup('autosave', {})
 --
 -- vim.api.nvim_create_autocmd('User', {
