@@ -143,18 +143,6 @@ vim.diagnostic.config({
 --         desc = "Toggle Lsp Diagnostics",
 --     }
 -- )
-vim.keymap.set('n', '<C-S-d>', [[
-SELECT 
-FROM 
-WHERE 
-AND NOT EXISTS (
-    SELECT * FROM 
-    WHERE 
-    AND NOT EXISTS (
-        SELECT * FROM 
-        WHERE 
-    )
-);]], { desc = "Insert SQL Relational Division Skeleton" })
 
 if vim.g.neovide then
     -- Set font
