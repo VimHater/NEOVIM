@@ -7,11 +7,8 @@ return {
                 "html",
                 "json",
                 "lua",
-                "markdown",
-                "markdown_inline",
                 "python",
                 "query",
-                "regex",
                 "vim",
                 "yaml",
             },
@@ -29,7 +26,6 @@ return {
                 "cpp",
                 "c",
                 "rust",
-                "bibtex",
             })
         end,
         textobjects = {
