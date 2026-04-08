@@ -1,15 +1,15 @@
 return {
     "nvim-lualine/lualine.nvim",
-    enabled = true,
+    enabled = false,
     event = "VeryLazy",
     init = function()
         vim.g.lualine_laststatus = vim.o.laststatus
         if vim.fn.argc(-1) > 0 then
             -- set an empty statusline till lualine loads
-            vim.o.statusline = " "
+            vim.opt.statusline = "%f %m %r %=%l:%c %p%%"
         else
             -- hide the statusline on the starter page
-            vim.o.laststatus = 0
+            vim.o.laststatus = 3
         end
     end,
     opts = function()

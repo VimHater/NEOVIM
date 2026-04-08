@@ -1,32 +1,8 @@
--- --for Wayland
--- vim.g.clipboard = {
---   name = "wl-clipboard",
---   copy = {
---     ["+"] = "wl-copy",
---     ["*"] = "wl-copy",
---   },
---   paste = {
---     ["+"] = "wl-paste",
---     ["*"] = "wl-paste",
---   },
---   cache_enabled = true,
--- }
--- -- Set clipboard option
--- vim.opt.clipboard = ""
--- --
--- vim.keymap.set(
---   { "n", "v", "i", "c" },
---   "<C-S-c>",
---   '"+y',
---   { noremap = true, silent = true, desc = "Copy to system clipboard" }
--- )
-
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.expandtab = true
-vim.g.copilot_enabled = false
 vim.g.snacks_animate = false
 vim.g.autoformat = false
 --vim.wo.signcolumn = "yes"
@@ -36,113 +12,51 @@ vim.opt.wrap = false
 vim.o.updatetime = 500
 vim.o.cmdheight = 0
 vim.opt.termguicolors = true
-vim.cmd("set nospell")
-vim.lsp.config["*"] = {
-    autostart = false,
-}
--- enabled with `:LazyExtras`
---vim.o.scrolloff = 999
--- vim.api.nvim_create_autocmd("CursorMoved", {
---   pattern = "*",
---   command = "normal! zz",
--- })
-vim.g.mkdp_refresh_slow = 0
-vim.g.mkdp_markdown_css = ""
-vim.g.mkdp_preview_options = {
-    mkit = {
-        katex = {
-            enabled = true,
-        },
-    },
-}
-
+vim.opt.conceallevel = 0
 vim.keymap.set({ "t" }, "<M-Esc>", [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set({ "n" }, "<C-S-x>", [[:ToggleTerm<CR>]], { noremap = true })
 vim.keymap.set({ "t" }, "<C-S-x>", [[<C-\><C-n>:q<CR>]], { noremap = true })
 vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
-
--- vim.keymap.set('v', '<leader>r', function()
---     -- 1. Yank the visual selection into the 's' register
---     vim.cmd('normal! "sy')
---     local query = vim.fn.getreg('s')
---
---     -- 2. Build the command string
---     -- We use vim.fn.shellescape to handle quotes and special characters safely
---     local cmd = string.format(
---         "sqlcmd -S 127.0.0.1,1433 -U sa -P 'Password.1' -C -Q %s",
---         vim.fn.shellescape(query)
---     )
---
---     -- 3. Run the command and show output in a new split buffer
---     -- This keeps your UI clean and lets you scroll through results
---     vim.cmd("new | setlocal buftype=nofile bufhidden=hide noswapfile")
---     vim.fn.termopen(cmd)
--- end, { desc = 'Run highlighted SQL query' })
-
-vim.keymap.set('v', '<leader>r', function()
-    -- 1. Yank selection to 's' register
-    vim.cmd('normal! "sy')
-    local query = vim.fn.getreg('s')
-
-    -- 2. Build the command string
-    local cmd = string.format(
-        "sqlcmd -S 127.0.0.1,1433 -U sa -P 'Password.1' -C -Q %s",
-        vim.fn.shellescape(query)
-    )
-
-    -- 3. Open a horizontal split at the bottom
-    vim.cmd("botright 15new") 
-    
-    -- 4. Set buffer options correctly
-    local buf = vim.api.nvim_get_current_buf()
-    
-    -- In Lua, we use the property name 'swapfile' and set it to false
-    vim.bo[buf].swapfile = false   -- This replaces 'noswapfile'
-    vim.bo[buf].buftype = "nofile"
-    vim.bo[buf].bufhidden = "wipe" -- Deletes buffer when window closes
-    vim.bo[buf].buflisted = false  -- Prevents it from appearing in tab bar
-    
-    -- 5. Add a 'q' shortcut to close this specific window easily
-    vim.keymap.set('n', 'q', ':close<CR>', { buffer = buf, silent = true })
-
-    -- 6. Execute the command in the terminal buffer
-    vim.fn.termopen(cmd)
-end, { desc = 'Run SQL and clean up buffer' })
-
 vim.g.sonokai_transparent_background = 1
--- function _G.toggle_sonokai_transparency()
---     _G.sonokai_transparent_enabled = not _G.sonokai_transparent_enabled
---
---     vim.g.sonokai_transparent_background = _G.sonokai_transparent_enabled and 1 or 0
---
---     vim.cmd("colorscheme sonokai")
---
---     print("Sonokai transparency " .. (_G.sonokai_transparent_enabled and "enabled" or "disabled"))
--- end
 
--- vim.api.nvim_create_user_command("ToggleSonokaiTransparent", toggle_sonokai_transparency, {})
+local function setup_statusline()
+    local mode_map = {
+        n  = { label = "NORMAL",   fg = "#282c34", bg = "#98c379" }, -- green
+        i  = { label = "-- INSERT --",   fg = "#282c34", bg = "#61afef" }, -- blue
+        v  = { label = "-- VISUAL --",   fg = "#282c34", bg = "#c678dd" }, -- purple
+        V  = { label = "-- V-LINE --",   fg = "#282c34", bg = "#c678dd" }, -- purple
+        c  = { label = "COMMAND",  fg = "#282c34", bg = "#e5c07b" }, -- yellow
+        R  = { label = "REPLACE",  fg = "#282c34", bg = "#e06c75" }, -- red
+        t  = { label = "TERMINAL", fg = "#282c34", bg = "#56b6c2" }, -- cyan
+        [""] = { label = "V-BLOCK", fg = "#282c34", bg = "#c678dd" }, -- purple
+    }
+
+    -- create highlight groups from the map
+    for key, m in pairs(mode_map) do
+        local name = "StatusMode_" .. (key == "" and "vblock" or key)
+        vim.api.nvim_set_hl(0, name, { fg = m.fg, bg = m.bg, bold = true })
+        mode_map[key].hl = "%#" .. name .. "#"
+    end
+
+    function _G.my_statusline()
+        local m = mode_map[vim.fn.mode()] or { label = vim.fn.mode(), hl = "%#StatusLine#" }
+        local file = vim.fn.expand("%:~")
+        local modified = vim.bo.modified and " [+]" or ""
+        return string.format("%s %s %%#StatusLine# %s%s ", m.hl, m.label, file, modified)
+    end
+
+    vim.opt.statusline = "%!v:lua.my_statusline()"
+end
+
+setup_statusline()
+
+vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_statusline })
 
 vim.diagnostic.config({
     virtual_text = false,
     signs = false,
     underline = false,
 })
--- vim.api.nvim_create_user_command(
---     "ShowDiag",
---     function()
---         local isLspDiagnosticsVisible = false
---         print("Disabled lsp")
---         isLspDiagnosticsVisible = not isLspDiagnosticsVisible
---         vim.diagnostic.config({
---             virtual_text = isLspDiagnosticsVisible, -- Hides text, but keeps signs/underline if enabled
---             signs = isLspDiagnosticsVisible,
---             underline = isLspDiagnosticsVisible,
---         })
---     end,
---     {
---         desc = "Toggle Lsp Diagnostics",
---     }
--- )
 
 if vim.g.neovide then
     -- Set font
