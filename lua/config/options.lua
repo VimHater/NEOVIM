@@ -20,32 +20,60 @@ vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
 vim.g.sonokai_transparent_background = 1
 
 local function setup_statusline()
-    local mode_map = {
-        n  = { label = "NORMAL",   fg = "#282c34", bg = "#98c379" }, -- green
-        i  = { label = "-- INSERT --",   fg = "#282c34", bg = "#61afef" }, -- blue
-        v  = { label = "-- VISUAL --",   fg = "#282c34", bg = "#c678dd" }, -- purple
-        V  = { label = "-- V-LINE --",   fg = "#282c34", bg = "#c678dd" }, -- purple
-        c  = { label = "COMMAND",  fg = "#282c34", bg = "#e5c07b" }, -- yellow
-        R  = { label = "REPLACE",  fg = "#282c34", bg = "#e06c75" }, -- red
-        t  = { label = "TERMINAL", fg = "#282c34", bg = "#56b6c2" }, -- cyan
-        [""] = { label = "V-BLOCK", fg = "#282c34", bg = "#c678dd" }, -- purple
-    }
+    -- local mode_map = {
+    --     n = { label = "NORMAL", fg = "#282c34", bg = "#98c379" },
+    --     i = { label = "INSERT", fg = "#282c34", bg = "#61afef" },
+    --     v = { label = "VISUAL", fg = "#282c34", bg = "#c678dd" },
+    --     V = { label = "V-LINE", fg = "#282c34", bg = "#c678dd" },
+    --     c = { label = "COMMAND", fg = "#282c34", bg = "#e5c07b" },
+    --     R = { label = "REPLACE", fg = "#282c34", bg = "#e06c75" },
+    --     t = { label = "TERMINAL", fg = "#282c34", bg = "#56b6c2" },
+    --     CTRL_V = { label = "V-BLOCK", fg = "#282c34", bg = "#c678dd" },
+    -- }
 
-    -- create highlight groups from the map
+    local mode_map = {
+        n = { label = "NORMAL"},
+        i = { label = "INSERT"},
+        v = { label = "VISUAL"},
+        V = { label = "V-LINE"},
+        c = { label = "COMMAND"},
+        R = { label = "REPLACE"},
+        t = { label = "TERMINAL"},
+        CTRL_V = { label = "V-BLOCK"},
+    }
     for key, m in pairs(mode_map) do
-        local name = "StatusMode_" .. (key == "" and "vblock" or key)
+        local name = "StatusMode_" .. key
         vim.api.nvim_set_hl(0, name, { fg = m.fg, bg = m.bg, bold = true })
         mode_map[key].hl = "%#" .. name .. "#"
     end
 
     function _G.my_statusline()
-        local m = mode_map[vim.fn.mode()] or { label = vim.fn.mode(), hl = "%#StatusLine#" }
+        local raw_mode = vim.fn.mode(1) -- pass 1 to get full mode
+        local key = raw_mode == "\22" and "CTRL_V" or raw_mode
+        -- also handle multi-line variants
+        if raw_mode:sub(1, 1) == "V" then
+            key = "V"
+        end
+        if raw_mode:sub(1, 1) == "v" then
+            key = "v"
+        end
+        if raw_mode:sub(1, 1) == "\22" then
+            key = "CTRL_V"
+        end
+
+        local m = mode_map[key] or { label = raw_mode, hl = "%#StatusLine#" }
         local file = vim.fn.expand("%:~")
         local modified = vim.bo.modified and " [+]" or ""
+
         return string.format("%s %s %%#StatusLine# %s%s ", m.hl, m.label, file, modified)
     end
-
     vim.opt.statusline = "%!v:lua.my_statusline()"
+
+    vim.api.nvim_create_autocmd("ModeChanged", {
+        callback = function()
+            vim.cmd("redrawstatus")
+        end,
+    })
 end
 
 setup_statusline()
