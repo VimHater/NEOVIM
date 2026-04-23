@@ -60,18 +60,18 @@ return {
             desc = "Buffers",
         },
         { "<leader>e", false },
-        {
-            "<leader>fe",
-            function()
-                -- This is a manual toggle: try reveal, fallback to open
-                local explorer = require("snacks.explorer")
-                local ok = pcall(explorer.reveal)
-                --if not ok then
-                --    explorer.open()
-                --end
-            end,
-            desc = "Toggle Snack Explorer",
-        },
+        -- {
+        --     "<leader>fe",
+        --     function()
+        --         -- This is a manual toggle: try reveal, fallback to open
+        --         local explorer = require("snacks.explorer")
+        --         local ok = pcall(explorer.reveal)
+        --         --if not ok then
+        --         --    explorer.open()
+        --         --end
+        --     end,
+        --     desc = "Toggle Snack Explorer",
+        -- },
         { "<leader>/", LazyVim.pick("grep"), desc = "Grep (Root Dir)" },
         {
             "<leader>:",
