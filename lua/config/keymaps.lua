@@ -7,4 +7,6 @@ vim.keymap.set("x", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move line down in Vis
 vim.keymap.set({ "n" }, "<leader><C-a>", "ggVG", { desc = "select all", noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<leader><C-y>", "ggyG", { desc = "yank all", noremap = true, silent = true })
 vim.keymap.set('n', 'q:', '<nop>', { desc = "disbable interactive command mode", silent = true })
--- vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open oil" })
+vim.keymap.set({ "t" }, "<Esc>", [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
+vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open oil" })

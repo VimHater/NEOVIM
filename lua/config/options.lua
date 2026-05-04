@@ -10,12 +10,10 @@ vim.g.autoformat = false
 vim.opt.sidescrolloff = 12
 vim.opt.wrap = false
 vim.o.updatetime = 500
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 0
 vim.opt.swapfile = false
-vim.keymap.set({ "t" }, "<Esc>", [[<C-\><C-n>]], { noremap = true })
-vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
 
 
 local function setup_statusline()
@@ -72,7 +70,7 @@ local function setup_statusline()
         end
 
         local m = mode_map[key] or { label = raw_mode, hl = "%#StatusLine#" }
-        local file = vim.fn.expand("%:~")
+        local file = vim.fn.expand("%:t")
         local modified = vim.bo.modified and " [+]" or ""
 
         return string.format("%s %s %%#StatusLine# %s%s ", m.hl, m.label, file, modified)
