@@ -10,3 +10,4 @@ vim.keymap.set('n', 'q:', '<nop>', { desc = "disbable interactive command mode",
 vim.keymap.set({ "t" }, "<Esc>", [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set({ "t" }, "<C-c>", "<Nop>", { noremap = false })
 vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open oil" })
+vim.keymap.set("n", "<C-q>", ":q<CR>", { desc = "close" })

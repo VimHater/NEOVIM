@@ -23,6 +23,30 @@ end, {
     nargs = 0,
 })
 
+vim.api.nvim_create_user_command("NvideTransparentEnable", function()
+    if vim.g.neovide then
+        vim.g.neovide_normal_opacity = 0.5
+    end
+end, {
+    desc = "Enable transparency for neovide",
+})
+
+vim.api.nvim_create_user_command("NvideTransparentDisable", function()
+    if vim.g.neovide then
+        vim.g.neovide_normal_opacity = 1
+    end
+end, {
+    desc = "Disable transparency for neovide",
+})
+
+vim.api.nvim_create_user_command("ShowListChars", function()
+    vim.cmd("set listchars=eol:$,tab:>-,trail:_,extends:>,precedes:<,space:·")
+    vim.cmd("set list")
+end, {
+    desc = "show list chars",
+    nargs = 0,
+})
+
 -- Disable interactive command mode
 vim.g.cedit = "<Nul>"
 vim.api.nvim_create_autocmd("CmdwinEnter", {
@@ -53,3 +77,29 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 --         vim.opt.statusline = "ABOBA"
 --     end,
 -- })
+local fcitx_prev_state = vim.fn.system("fcitx5-remote"):gsub("%s+", "")
+
+vim.fn.system("fcitx5-remote -c")
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+    pattern = { "*:n", "i:c", "R:c", "v:c", "V:c" },
+    callback = function()
+        local state = vim.fn.system("fcitx5-remote"):gsub("%s+", "")
+        if state == "2" then
+            fcitx_prev_state = "2"
+            vim.fn.system("fcitx5-remote -c")
+        else
+            fcitx_prev_state = "1"
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+    pattern = { "n:i", "n:R", "n:v", "n:V", "c:i", "c:R" },
+    callback = function()
+        if fcitx_prev_state == "2" then
+            vim.fn.system("fcitx5-remote -o")
+        end
+    end,
+})
+

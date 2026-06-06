@@ -59,6 +59,9 @@ return {
                         fallbackFlags = { "--std=c++26" },
                     },
                 },
+                lua_ls = {
+                    enabled = false, -- This completely disables the Lua LSP
+                },
             },
             -- example calling setup directly for each LSP
             -- config = function()

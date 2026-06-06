@@ -90,7 +90,10 @@ end
 
 setup_statusline()
 
+vim.cmd("set listchars=tab:>-,trail:-")
+vim.cmd("set list")
 vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_statusline })
+
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -98,3 +101,22 @@ vim.diagnostic.config({
     underline = false,
 })
 
+if vim.g.neovide then
+    vim.keymap.set({'i', 'n'}, '<C-S-v>', '<C-r>+', { noremap = true, silent = true })
+    vim.opt.linespace = 4
+    vim.g.neovide_padding_top = 0
+    vim.g.neovide_padding_bottom = 0
+    vim.g.neovide_padding_right = 0
+    vim.g.neovide_padding_left = 0
+    vim.g.neovide_scale_factor = 1
+    vim.g.neovide_cursor_trail_size = 0.8
+    vim.g.neovide_cursor_smooth_blink = true
+
+    local function adjust_scale(delta)
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta
+    end
+
+    vim.keymap.set({ 'n', 'i', 'v' }, '<C-=>', function() adjust_scale(0.1) end, { noremap = true, silent = true })
+    vim.keymap.set({ 'n', 'i', 'v' }, '<C-->', function() adjust_scale(-0.1) end, { noremap = true, silent = true })
+    vim.keymap.set({ 'n', 'i', 'v' }, '<C-0>', function() vim.g.neovide_scale_factor = 1.0 end, { noremap = true, silent = true })
+end
