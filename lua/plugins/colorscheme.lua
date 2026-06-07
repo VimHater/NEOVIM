@@ -1,7 +1,7 @@
 return {
     {
         "navarasu/onedark.nvim",
-        enabled = true,
+        enabled = false,
         lazy = true,
         config = function()
             local onedark = require("onedark")
@@ -16,11 +16,12 @@ return {
                 },
             })
 
-            --onedark.load() -- This loads the theme properly
+            -- onedark.load() -- This loads the theme properly
         end,
     },
     {
         "folke/tokyonight.nvim",
+        enabled = false,
         lazy = true,
         opts = { style = "night" },
     },
@@ -28,8 +29,36 @@ return {
         "LazyVim/LazyVim",
         lazy = false,
         opts = {
-            colorscheme = "onedark",
+            colorscheme = "kanagawa",
         },
     },
-    -- Lazy
+    {
+        "rebelot/kanagawa.nvim",
+        lazy = false,
+        require('kanagawa').setup({
+            compile = false,             -- enable compiling the colorscheme
+            undercurl = true,            -- enable undercurls
+            commentStyle = { italic = true },
+            functionStyle = {},
+            keywordStyle = { italic = true},
+            statementStyle = { bold = true },
+            typeStyle = {},
+            transparent = false,         -- do not set background color
+            dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+            terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+            colors = {                   -- add/modify theme and palette colors
+                palette = {},
+                theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+            },
+            overrides = function(colors) -- add/modify highlights
+                return {}
+            end,
+            theme = "wave",              -- Load "wave" theme
+            background = {               -- map the value of 'background' option to a theme
+                dark = "wave",           -- try "dragon" !
+                light = "lotus"
+            },
+        })
+
+    }
 }

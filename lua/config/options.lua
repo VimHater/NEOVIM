@@ -14,7 +14,7 @@ vim.o.cmdheight = 1
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 0
 vim.opt.swapfile = false
-
+vim.opt.cmdheight = 1
 
 local function setup_statusline()
     -- local mode_map = {
@@ -104,6 +104,7 @@ vim.diagnostic.config({
 if vim.g.neovide then
     vim.keymap.set({'i', 'n'}, '<C-S-v>', '<C-r>+', { noremap = true, silent = true })
     vim.opt.linespace = 4
+    vim.g.neovide_input_ime = true
     vim.g.neovide_padding_top = 0
     vim.g.neovide_padding_bottom = 0
     vim.g.neovide_padding_right = 0
