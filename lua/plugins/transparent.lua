@@ -1,6 +1,6 @@
 return {
     "xiyaowong/transparent.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false,
     on_clear = function() end,
 }
