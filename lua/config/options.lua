@@ -113,9 +113,8 @@ vim.diagnostic.config({
 if vim.g.neovide then
     vim.keymap.set({'i', 'n'}, '<C-S-v>', '<C-r>+', { noremap = true, silent = true })
     vim.keymap.set('c', '<C-S-v>', '<C-r>+', { noremap = true })
-    vim.opt.guifont = "ZedMono Nerd Font Mono"
 
-    vim.opt.linespace = 3
+    vim.opt.linespace = 2
     vim.g.neovide_input_ime = true
     vim.g.neovide_cursor_cell_color_fallback = false
 

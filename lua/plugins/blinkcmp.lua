@@ -54,7 +54,7 @@ return {
             preset = "default",
             ["<M-j>"] = { "select_next", "fallback" },
             ["<M-k>"] = { "select_prev", "fallback" },
-            ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
+            -- ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
             ["<C-n>"] = { "snippet_forward", "fallback_to_mappings" },

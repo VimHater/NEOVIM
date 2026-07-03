@@ -56,13 +56,13 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
     end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "*.md", "markdown" }, -- filetypes to disable for
-    callback = function()
-        vim.opt_local.spell = false
-        vim.cmd("RenderMarkdown buf_disable")
-    end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = { "*.md", "markdown" }, -- filetypes to disable for
+--     callback = function()
+--         vim.opt_local.spell = false
+--         vim.cmd("RenderMarkdown buf_disable")
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },

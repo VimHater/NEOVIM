@@ -56,11 +56,10 @@ return {
                         usePlaceholders = true,
                         completeUnimported = true,
                         clangdFileStatus = true,
-                        fallbackFlags = { "--std=c++26" },
                     },
                 },
                 lua_ls = {
-                    enabled = false, -- This completely disables the Lua LSP
+                    enabled = true,
                 },
             },
             -- example calling setup directly for each LSP
