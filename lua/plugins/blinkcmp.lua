@@ -54,7 +54,7 @@ return {
             preset = "default",
             ["<M-j>"] = { "select_next", "fallback" },
             ["<M-k>"] = { "select_prev", "fallback" },
-            -- ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
+            ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<Tab>"] = { "select_and_accept", "fallback_to_mappings" },
             ["<C-b>"] = { "snippet_backward", "fallback_to_mappings" },
             ["<C-n>"] = { "snippet_forward", "fallback_to_mappings" },
@@ -76,6 +76,32 @@ return {
         sources = {
             --default = { 'lsp', 'path', 'snippets', 'buffer' },
             default = { "lsp", "snippets", "path", "buffer" },
+            providers = {
+                -- Buffer source scans buffer text to build completion words.
+                -- On big files the default sync scan blocks every keystroke.
+                -- Force async and cap sizes so typing stays smooth.
+                buffer = {
+                    opts = {
+                        -- scan synchronously only for small buffers
+                        max_sync_buffer_size = 20000, -- ~20 KB
+                        -- above this, scan async in the background
+                        max_async_buffer_size = 200000, -- ~200 KB
+                        -- never scan buffers bigger than this at all
+                        max_total_buffer_size = 500000, -- ~500 KB
+                        -- only pull words from buffers visible in a window
+                        get_bufnrs = function()
+                            local bufs = {}
+                            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                                local buf = vim.api.nvim_win_get_buf(win)
+                                if vim.bo[buf].buftype == "" then
+                                    bufs[buf] = true
+                                end
+                            end
+                            return vim.tbl_keys(bufs)
+                        end,
+                    },
+                },
+            },
         },
 
         -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance

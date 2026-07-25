@@ -18,6 +18,9 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window right" })
 vim.keymap.set("n", "<C-q>", "<C-w>c", { desc = "Close window" })
 
+vim.keymap.set("n", "gl", "$", { desc = "goto EOL" })
+vim.keymap.set("n", "gL", "0", { desc = "goto start of line" })
+
 local readline = require 'readline'
 vim.keymap.set('!', '<M-f>', readline.forward_word)
 vim.keymap.set('!', '<M-b>', readline.backward_word)
@@ -28,3 +31,6 @@ vim.keymap.set('!', '<M-BS>', readline.backward_kill_word)
 vim.keymap.set('!', '<C-w>', readline.unix_word_rubout)
 vim.keymap.set('!', '<C-k>', readline.kill_line)
 vim.keymap.set('!', '<C-u>', readline.backward_kill_line)
+
+vim.keymap.set({ "n", "v" }, "<C-e>", "$", { desc = "Jump to EOL" })
+vim.keymap.set({ "n", "v" }, "<C-o>", "0", { desc = "Jump to SOL" })

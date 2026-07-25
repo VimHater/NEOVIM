@@ -66,10 +66,24 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
-    callback = function()
-        local save_cursor = vim.fn.getpos(".")
-        vim.cmd([[%s/\s\+$//e]])
-        vim.fn.setpos(".", save_cursor)
+    callback = function(ev)
+        -- Skip big buffers: the :%s regex over the whole file makes saving laggy.
+        if vim.b[ev.buf].bigfile or vim.api.nvim_buf_line_count(ev.buf) > 20000 then
+            return
+        end
+        -- Trim trailing whitespace without touching search history / cursor.
+        local lines = vim.api.nvim_buf_get_lines(ev.buf, 0, -1, false)
+        local changed = false
+        for i, line in ipairs(lines) do
+            local trimmed = line:gsub("%s+$", "")
+            if trimmed ~= line then
+                lines[i] = trimmed
+                changed = true
+            end
+        end
+        if changed then
+            vim.api.nvim_buf_set_lines(ev.buf, 0, -1, false, lines)
+        end
     end,
 })
 -- vim.api.nvim_create_autocmd("BufEnter", {
@@ -77,20 +91,26 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 --         vim.opt.statusline = "ABOBA"
 --     end,
 -- })
-local fcitx_prev_state = vim.fn.system("fcitx5-remote"):gsub("%s+", "")
+-- fcitx toggle: async via vim.system so mode changes never block the UI
+local fcitx_prev_state = "1"
 
-vim.fn.system("fcitx5-remote -c")
+vim.system({ "fcitx5-remote" }, { text = true }, function(o)
+    fcitx_prev_state = (o.stdout or ""):gsub("%s+", "")
+end)
+vim.system({ "fcitx5-remote", "-c" })
 
 vim.api.nvim_create_autocmd("ModeChanged", {
     pattern = { "*:n", "i:c", "R:c", "v:c", "V:c" },
     callback = function()
-        local state = vim.fn.system("fcitx5-remote"):gsub("%s+", "")
-        if state == "2" then
-            fcitx_prev_state = "2"
-            vim.fn.system("fcitx5-remote -c")
-        else
-            fcitx_prev_state = "1"
-        end
+        vim.system({ "fcitx5-remote" }, { text = true }, function(o)
+            local state = (o.stdout or ""):gsub("%s+", "")
+            if state == "2" then
+                fcitx_prev_state = "2"
+                vim.system({ "fcitx5-remote", "-c" })
+            else
+                fcitx_prev_state = "1"
+            end
+        end)
     end,
 })
 
@@ -98,7 +118,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     pattern = { "n:i", "n:R", "n:v", "n:V", "c:i", "c:R" },
     callback = function()
         if fcitx_prev_state == "2" then
-            vim.fn.system("fcitx5-remote -o")
+            vim.system({ "fcitx5-remote", "-o" })
         end
     end,
 })

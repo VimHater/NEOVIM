@@ -4,25 +4,25 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.g.snacks_animate = false
 vim.g.autoformat = false
---vim.wo.signcolumn = "yes"
---vim.wo.relativenumber = true
-vim.opt.sidescrolloff = 12
-vim.opt.wrap = false
+vim.wo.signcolumn = "yes"
+vim.opt.sidescrolloff = 8
+vim.opt.wrap = true
 vim.o.updatetime = 500
-vim.o.cmdheight = 1
+vim.o.cmdheight = 3
 vim.opt.termguicolors = true
-vim.opt.conceallevel = 0
+-- vim.opt.conceallevel = 0
 vim.opt.swapfile = false
 vim.opt.cmdheight = 1
+-- vim.opt.statuscolumn = ""
 
 local function setup_statusline()
     -- vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#FFFFFF", bg = "#1F1F1E" })
     -- vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#565b66", bg = "#1F1F1E" })
     -- vim.api.nvim_set_hl(0, "StatusLineExtra", { fg = "#565b66", bg = "#131721" })
-    vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#000000", bg = "#e5c07f" })
+    vim.api.nvim_set_hl(0, "StatusLine",   { fg = "#000000", bg = "#98c379" })
     vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#565b66", bg = "#1F1F1E" })
     local mode_map = {
-        n = { label = "N", fg = "#282c34", bg = "#98c379" },
+        n = { label = "N", fg = "#282c34", bg = "#98FF79" },
         i = { label = "I", fg = "#282c34", bg = "#61afef" },
         v = { label = "V", fg = "#282c34", bg = "#c678dd" },
         V = { label = "V-LINE", fg = "#282c34", bg = "#c678dd" },
@@ -30,6 +30,7 @@ local function setup_statusline()
         R = { label = "R", fg = "#282c34", bg = "#e06c75" },
         t = { label = "T", fg = "#282c34", bg = "#56b6c2" },
         CTRL_V = { label = "V-BLOCK", fg = "#282c34", bg = "#c678dd" },
+        VM = { label = "MULTI", fg = "#282c34", bg = "#F29718" }, -- vim-visual-multi, matches cursor color
     }
     -- local mode_map = {
     --     n      = { label = "N",       fg = "#000000", bg = "#7fd962" }, -- ayu green
@@ -52,7 +53,18 @@ local function setup_statusline()
         if raw_mode:sub(1, 1) == "V" then key = "V" end
         if raw_mode:sub(1, 1) == "v" then key = "v" end
         if raw_mode:sub(1, 1) == "\22" then key = "CTRL_V" end
+        -- vim-visual-multi keeps vim in normal/insert mode; flag it explicitly.
+        if vim.g.vm_active then key = "VM" end
         local m = mode_map[key] or { label = raw_mode, hl = "%#StatusLine#" }
+
+        -- Big files: keep the mode indicator but drop wordcount / lua field
+        -- lookups. %f %m %l %c %P are evaluated natively, no per-redraw scan.
+        local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
+        if vim.b[buf].bigfile or vim.api.nvim_buf_line_count(buf) > 20000 then
+            return string.format(
+                "%s %s %%#StatusLine# %%f%%m%%=%%#StatusLineExtra# %%l:%%c  %%P ",
+                m.hl, m.label)
+        end
 
         local file = vim.fn.expand("%:t")
         local modified = vim.bo.modified and " [+]" or ""
@@ -71,12 +83,20 @@ local function setup_statusline()
                 from_col,  to_col  = to_col,  from_col
             end
             local lines = to_line - from_line + 1
-            local words = vim.fn.wordcount().visual_words or 0
-            local bytes = vim.fn.wordcount().visual_bytes or 0
             local total_lines = vim.fn.line("$")
             local pct = math.floor(vim.fn.line(".") / total_lines * 100)
-            right = string.format(
-                "%%#StatusLineExtra# %dL  %dW  %dB  %d%%%% ", lines, words, bytes, pct)
+            -- wordcount() rescans the whole selection on every redraw, which
+            -- redraws on every motion in visual mode. Skip it for big
+            -- selections so moving the cursor stays fast.
+            if lines <= 2000 then
+                local wc = vim.fn.wordcount()
+                right = string.format(
+                    "%%#StatusLineExtra# %dL  %dW  %dB  %d%%%% ",
+                    lines, wc.visual_words or 0, wc.visual_bytes or 0, pct)
+            else
+                right = string.format(
+                    "%%#StatusLineExtra# %dL  %d%%%% ", lines, pct)
+            end
         else
             local total_lines = vim.fn.line("$")
             local pct = math.floor(vim.fn.line(".") / total_lines * 100)
